@@ -20,13 +20,19 @@ function buildNavbar() {
 
 function setActiveSection() {
     const scrollPos = window.scrollY + window.innerHeight / 2;
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionBottom = sectionTop + section.offsetHeight;
+        const navLink = document.querySelector(`#nav-list a[href='#${section.id}']`);
+
         if (scrollPos >= sectionTop && scrollPos <= sectionBottom) {
-            document.querySelector(`#nav-list a[href='#${section.id}']`).classList.add('active');
-        } else {
-            document.querySelector(`#nav-list a[href='#${section.id}']`).classList.remove('active');
+            sections.forEach(sec => {
+                document.querySelector(`#nav-list a[href='#${sec.id}']`).classList.remove('active');
+                sec.classList.remove('active');
+            });
+            navLink.classList.add('active');
+            section.classList.add('active');
         }
     });
 }
